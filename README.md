@@ -3,4 +3,5 @@
 可能看看制作组短期会不会release存档功能的更新，决定要不要继续优化这个项目...
 
 ## 界面
-![image](https://github.com/user-attachments/assets/78735d81-4214-4cf8-b96d-53cc8e310dfe)
+![image](https://github.com/user-attachments/assets/9d5c764b-a993-4393-90e7-ca2cb8397832)
+
