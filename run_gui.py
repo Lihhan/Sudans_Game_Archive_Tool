@@ -55,6 +55,19 @@ class ItemListApp:
         container.grid(row=0, column=0, sticky="nsew")
 
         self.canvas = tk.Canvas(container, borderwidth=0, background="#f5f5f5")
+        
+        # 加载背景图像
+        try:
+            background_image = Image.open("background_image.jpg")  # 确保路径正确
+            background_image = background_image.resize((425, 700), Image.ANTIALIAS)  # 根据窗口大小调整背景图
+            background_photo = ImageTk.PhotoImage(background_image)
+            self.canvas.create_image(0, 0, anchor="nw", image=background_photo)
+
+            # 保持对图片的引用，防止被垃圾回收
+            self.canvas.image = background_photo
+        except Exception as e:
+            print(f"加载背景图片时出错: {e}")
+        
         self.frame = tk.Frame(self.canvas, background="#f5f5f5")
         scrollbar = tk.Scrollbar(container, orient="vertical", command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=scrollbar.set)
@@ -175,6 +188,26 @@ class ItemListApp:
         dialog.geometry(f"{dialog_width}x{dialog_height}+{new_x}+{new_y}")
         dialog.resizable(False, False)
         dialog.grab_set()
+        
+        # 使用 Canvas 来设置背景
+        canvas = tk.Canvas(dialog, width=dialog_width, height=dialog_height)
+        canvas.pack(fill="both", expand=True)
+
+        # 加载背景图片
+        try:
+            background_image = Image.open("background_image.jpg")  # 确保提供的路径正确
+            background_image = background_image.resize((dialog_width, dialog_height), Image.ANTIALIAS)
+            background_photo = ImageTk.PhotoImage(background_image)
+            canvas.create_image(10, 300, anchor="nw", image=background_photo)
+
+            # 保持对图片的引用，防止被垃圾回收
+            canvas.image = background_photo  # 保持引用
+
+        except Exception as e:
+            print(f"加载背景图片时出错: {e}")
+        
+        # 保持对图片的引用，防止被垃圾回收
+        canvas.image = background_photo
 
         name_var = tk.StringVar(value=item["name"])
         desc_var = tk.StringVar(value=item["description"])
